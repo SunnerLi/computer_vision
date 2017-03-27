@@ -18,12 +18,10 @@ def templateMatching(img):
     # Get the size of the image
     img_height = np.shape(img)[0]
     img_width = np.shape(img)[1]
+    img_height, img_width = img.shape
 
     # Transfer the result as three channel
-    result_show = np.ndarray([img_height, img_width, 3])
-    for i in range(img_height):
-        for j in range(img_width):
-            result_show[i][j] = img[i][j]
+    result_show = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
 
     template_num = np.shape(template)[0]
     for k in range(template_num):
@@ -55,7 +53,7 @@ def templateMatching(img):
             for j in range(np.shape(result)[1]):
                 if result[i][j] == 1:
                     #result_show[i+1][j+1]=[255, 0, 0]
-                    cv2.rectangle(result_show, (j, i), (j+2, i+2), (255, 0, 0), 1)
+                    cv2.rectangle(result_show, (j, i), (j+2, i+2), (0, 0, 255), 1)
 
         print "Finish ", k+1, "template matching..."
     return result_show

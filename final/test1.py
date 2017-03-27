@@ -1,5 +1,7 @@
-import cv2
+import argparse
 
-img = cv2.imread('fast_true.png', 1)
-cv2.imshow('result', cv2.resize(img, (img.shape[0]*2, img.shape[1]*2)))
-cv2.waitKey(0)
+parser = argparse.ArgumentParser()
+parser.add_argument('-c', action='store', dest='constant_value',
+                    help='Store a constant value')
+result = parser.parse_args()
+print result.constant_value

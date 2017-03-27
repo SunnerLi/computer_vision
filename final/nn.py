@@ -10,14 +10,13 @@ def formTensor(img=cv2.imread(test_img_name, 0)):
     height, width = np.shape(img)
     x_stride_num = (width - 8) / 2 + 1
     y_stride_num = (height - 8) / 2 + 1
-    print x_stride_num, y_stride_num
     
     tensor = []
+    print "please wait for a while to form the tensor..."
     for i in range(y_stride_num):
         for j in range(x_stride_num):
             roi = img[2*i:2*i+8, 2*j:2*j+8]
-            print roi
-            print "y: ", 2*i, '~', 2*i+8, '\tx: ', 2*j, '~', 2*j+8
+            # print "y: ", 2*i, '~', 2*i+8, '\tx: ', 2*j, '~', 2*j+8
             tensor.append(np.expand_dims(roi, -1))
 
             # Copy Image
@@ -29,7 +28,8 @@ def formTensor(img=cv2.imread(test_img_name, 0)):
             cv2.rectangle(draw_paper, (2*i, 2*j), (2*i+8, 2*j+8), (0, 0, 200))
             #cv2.waitKey(0)
 
-    print np.shape(np.asarray(tensor))
+    print "Finish forming!"
+    print "Tensor size: ", np.shape(np.asarray(tensor))
     return np.asarray(tensor)
 
 def test():
@@ -64,7 +64,6 @@ def work(tensor):
             model.x: tensor
         }
         _output = sess.run(model.output, feed_dict=feed_dict)
-        print "\toutput: ", _output
 
         for i in range(len(_output)):
             if _output[i][0] > _output[i][1]:
@@ -74,9 +73,6 @@ def work(tensor):
     return result
 
 def draw(result, img):
-    #img = cv2.imread(test_img_name, 0)
-    print np.shape(img)
-
     result_img = np.zeros([np.shape(img)[0], np.shape(img)[1], 3])
     for i in range(np.shape(img)[0]):
         for j in range(np.shape(img)[1]):
