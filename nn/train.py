@@ -10,7 +10,7 @@ if __name__ == '__main__':
     with sess.as_default():
         sess.run(tf.global_variables_initializer())
 
-        for j in range(1500):
+        for j in range(100):
             loss_sum = 0.0
             for i in range(len(imgs)):
                 feed_dict = {

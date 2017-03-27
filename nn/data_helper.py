@@ -1,10 +1,19 @@
 import numpy as np
+import preprocess
 import cv2
 import os
 
+"""
 POS_IMG_SITE = './img/pos/'
 NEG_IMG_SITE = './img/neg/'
+"""
 TEST_IMG_SITE = './img/test/'
+
+POS_IMG_SITE = './work/pos/'
+NEG_IMG_SITE = './work/neg/'
+
+if not os.path.exists('./work') == True:
+    preprocess.preProcess()
 
 def load():
     imgs = []
